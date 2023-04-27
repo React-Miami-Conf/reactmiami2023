@@ -139,7 +139,7 @@ export async function getStaticProps() {
   for (let result of results.resources) {
     reducedResults.push({
       id: i,
-      context: result.context.custom.alt || "",
+      context: result.context?.custom?.alt || "",
       height: result.height,
       width: result.width,
       public_id: result.public_id,

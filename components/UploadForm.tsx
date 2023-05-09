@@ -1,8 +1,8 @@
-import type { PutBlobResult } from '@vercel/blob';
+import type { BlobResult } from '@vercel/blob';
 import { useState } from 'react';
 
 export default function UploadForm() {
-  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const [blob, setBlob] = useState<BlobResult | null>(null);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function UploadForm() {
             method: 'POST',
             body: formData,
           });
-          const blob = (await response.json()) as PutBlobResult;
+          const blob = (await response.json()) as BlobResult;
           setBlob(blob);
         }}
       >

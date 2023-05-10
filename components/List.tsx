@@ -10,8 +10,6 @@ export default function List() {
     fetch('/api/list')
       .then((res) => res.json())
       .then((data) => {
-        data[0].contentType = 'image/jpeg'
-        data[0].contentDisposition = 'inline'
         setData(data);
         setLoading(false);
       });

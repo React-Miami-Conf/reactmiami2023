@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
+import {useEffect, useRef, useState} from 'react'
 import Bridge from '../components/Icons/Bridge'
 import Logo from '../components/Icons/Logo'
 import Modal from '../components/Modal'
@@ -14,12 +14,37 @@ import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
 import UploadForm from "../components/UploadForm";
 import List from "../components/List";
 
-const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
+const Home: NextPage = () => {
   const router = useRouter()
   const { photoId } = router.query
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
+  const [images, setImages] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('/api/images')
+      .then((res) => res.json())
+      .then((data) => {
+        const newImages = data.images.rows
+
+        let reducedResults: ImageProps[] = []
+        let i = 0
+        for (let image of newImages) {
+          reducedResults.push({
+            id: i,
+            url: image.url,
+            description: image.description
+          })
+          i++
+        }
+
+        setImages(reducedResults);
+        setLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
@@ -28,6 +53,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
       setLastViewedPhoto(null)
     }
   }, [photoId, lastViewedPhoto, setLastViewedPhoto])
+
+  if (isLoading) return <p className="text-white/80">Loading...</p>;
+  if (!images) return <p className="text-white/80">No profile data</p>;
 
   return (
     <>
@@ -77,7 +105,8 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           </div>
           <UploadForm/>
           <List />
-          {/*{images.map(({ id, context, public_id, format, blurDataUrl }) => (
+          {/*{images.map(({ id, context, public_id, format, blurDataUrl }) => (*/}
+          {images.map(({id, url, description}) => (
             <Link
               key={id}
               href={`/?photoId=${id}`}
@@ -87,12 +116,12 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
             >
               <Image
-                alt={ `${context}` || "React Miami photo"}
+                alt={description}
                 className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
                 style={{ transform: 'translate3d(0, 0, 0)' }}
-                placeholder="blur"
-                blurDataURL={blurDataUrl}
-                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
+                // placeholder="blur"
+                // blurDataURL={blurDataUrl}
+                src={url}
                 width={720}
                 height={480}
                 sizes="(max-width: 640px) 100vw,
@@ -101,7 +130,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                   25vw"
               />
             </Link>
-          ))}*/}
+          ))}
         </div>
       </main>
       <footer className="p-6 text-center text-white/80 sm:p-12">
@@ -131,9 +160,10 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
 
 export default Home
 
-export async function getStaticProps() {
+/*export async function getStaticProps() {
+
   const results = await cloudinary.v2.search
-    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
+    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/!*`)
     .with_field('context')
     .sort_by('public_id', 'desc')
     .max_results(400)
@@ -167,4 +197,4 @@ export async function getStaticProps() {
       images: reducedResults,
     },
   }
-}
+}*/

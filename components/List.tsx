@@ -18,29 +18,11 @@ export default function List() {
   if (isLoading) return <p className="text-white/80">Loading...</p>;
   if (!data) return <p className="text-white/80">No profile data</p>;
 
-  console.log({data})
-
   return (
     <div>
-      {data && data.map((d) => <p className="text-white/80" key={d.url}>{d.url}</p>)}
-      {data && data.map((d) => <img key={d.url} src={d.url} alt="React Miami photo" width="720" height="480" />)}
+      {data && data.map((data) => <p key={data.url} className="text-white/80">{data.url}</p>)}
     </div>
   );
 }
 
-/*
-{data && data.map((data) => <Image
-  key={data.url}
-  alt={"React Miami photo"}
-  className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-  style={{ transform: 'translate3d(0, 0, 0)' }}
-  placeholder="blur"
-  blurDataURL={data.url}
-  src={data.url}
-  width={720}
-  height={480}
-  sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
-/>)}*/
+

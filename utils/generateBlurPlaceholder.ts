@@ -11,7 +11,7 @@ export default async function getBase64ImageUrl(
   if (url) {
     return url
   }
-  const response = await fetch(
+  /*const response = await fetch(
     `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_jpg,w_8,q_70/${image.public_id}.${image.format}`
   )
   const buffer = await response.arrayBuffer()
@@ -20,6 +20,6 @@ export default async function getBase64ImageUrl(
   })
 
   url = `data:image/jpeg;base64,${Buffer.from(minified).toString('base64')}`
-  cache.set(image, url)
+  cache.set(image, url)*/
   return url
 }

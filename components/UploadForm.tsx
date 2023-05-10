@@ -19,6 +19,7 @@ export default function UploadForm() {
             method: 'POST',
             body: formData,
           });
+
           const blob = (await response.json()) as BlobResult;
           setBlob(blob);
         }}

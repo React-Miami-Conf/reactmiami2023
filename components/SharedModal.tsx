@@ -77,11 +77,11 @@ export default function SharedModal({
                   }/image/upload/c_scale,${navigation ? 'w_1280' : 'w_1920'}/${
                     currentImage.public_id
                   }.${currentImage.format}`}*/
-                  src={currentImage.url}
+                  src={currentImage?.url}
                   width={navigation ? 1280 : 1920}
                   height={navigation ? 853 : 1280}
                   priority
-                  alt={currentImage.description}
+                  alt={currentImage?.description}
                   onLoadingComplete={() => setLoaded(true)}
                 />
               </motion.div>

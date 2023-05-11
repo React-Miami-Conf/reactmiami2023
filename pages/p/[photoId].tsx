@@ -5,10 +5,8 @@ import Carousel from '../../components/Carousel'
 import getResults from '../../utils/cachedImages'
 import getBase64ImageUrl from '../../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../../utils/types'
-import {Suspense} from "react";
 
 const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
-  // const [currentPhoto, setCurrentPhoto] = useState(null)
   const router = useRouter()
   const { photoId } = router.query
   let index = Number(photoId)
@@ -23,9 +21,7 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
         <meta name="twitter:image" content={currentPhotoUrl} />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">
-        <Suspense>
           <Carousel currentPhoto={currentPhoto} index={index} />
-        </Suspense>
       </main>
     </>
   )
@@ -54,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     (img) => img.id === Number(context.params.photoId)
   )
 
-      // currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
+  // currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
 
   return {
     props: {

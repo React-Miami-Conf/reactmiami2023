@@ -33,11 +33,11 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         <title>React Miami 2023 Photos</title>
         <meta
           property="og:image"
-          content="https://res.cloudinary.com/dtcshrxsw/image/upload/v1682524837/React_Miami_OG_r7mhlu.png"
+          content="https://public.blob.vercel-storage.com/79xekGMNQ8jAucrM/og-saxLe61GN6Uwu5yJLWACnJWyAkZ9wH.png"
         />
         <meta
           name="twitter:image"
-          content="https://res.cloudinary.com/dtcshrxsw/image/upload/v1682524837/React_Miami_OG_r7mhlu.png"
+          content="https://public.blob.vercel-storage.com/79xekGMNQ8jAucrM/og-saxLe61GN6Uwu5yJLWACnJWyAkZ9wH.png"
         />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">

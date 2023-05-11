@@ -1,6 +1,6 @@
 module.exports = {
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: ['res.cloudinary.com', 'public.blob.vercel-storage.com'],
+    domains: ['public.blob.vercel-storage.com'],
   },
 }

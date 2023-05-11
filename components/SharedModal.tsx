@@ -117,7 +117,7 @@ export default function SharedModal({
                 </>
               )}
               <div className="absolute top-0 right-0 flex items-center gap-2 p-3 text-white">
-                {navigation ? (
+                {/*{navigation ? (
                   <a
                     // href={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${currentImage.public_id}.${currentImage.format}`}
                     href={currentImage.url}
@@ -128,7 +128,7 @@ export default function SharedModal({
                   >
                     <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                   </a>
-                ) : (
+                ) : (*/}
                   <a
                     href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20pic%20from%20React%20Miami!%0A%0Ahttps://reactmiami2023.vercel.app/p/${index}`}
                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
@@ -138,7 +138,7 @@ export default function SharedModal({
                   >
                     <Twitter className="h-5 w-5" />
                   </a>
-                )}
+                {/*)}*/}
                 <button
                   onClick={() =>
                     /*downloadPhoto(

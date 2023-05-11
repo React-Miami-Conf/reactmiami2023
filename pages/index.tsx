@@ -13,37 +13,12 @@ import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
 import UploadForm from "../components/UploadForm";
 import List from "../components/List";
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter()
   const { photoId } = router.query
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
-  const [images, setImages] = useState(null);
-  const [isLoading, setLoading] = useState(false);
 
   const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    setLoading(true);
-    fetch('/api/images')
-      .then((res) => res.json())
-      .then((data) => {
-        const newImages = data.images.rows
-
-        let reducedResults: ImageProps[] = []
-        let i = 0
-        for (let image of newImages) {
-          reducedResults.push({
-            id: i,
-            url: image.url,
-            description: image.description
-          })
-          i++
-        }
-
-        setImages(reducedResults);
-        setLoading(false);
-      });
-  }, []);
 
   useEffect(() => {
     // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
@@ -52,9 +27,6 @@ const Home: NextPage = () => {
       setLastViewedPhoto(null)
     }
   }, [photoId, lastViewedPhoto, setLastViewedPhoto])
-
-  if (isLoading) return <p className="text-white/80">Loading...</p>;
-  if (!images) return <p className="text-white/80">No profile data</p>;
 
   return (
     <>
@@ -103,7 +75,6 @@ const Home: NextPage = () => {
             </a>
           </div>
           <UploadForm/>
-          <List />
           {/*{images.map(({ id, context, public_id, format, blurDataUrl }) => (*/}
           {images.map(({id, url, description}) => (
             <Link
@@ -159,41 +130,37 @@ const Home: NextPage = () => {
 
 export default Home
 
-/*export async function getStaticProps() {
-
-  const results = await cloudinary.v2.search
-    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/!*`)
-    .with_field('context')
-    .sort_by('public_id', 'desc')
-    .max_results(400)
-    .execute()
+export async function getStaticProps() {
   let reducedResults: ImageProps[] = []
 
+  const results = await fetch('https://reactmiami2023.vercel.app/api/images')
+  const data = await results.json()
+
+  const newImages = data.images.rows
+
   let i = 0
-  for (let result of results.resources) {
+  for (let image of newImages) {
     reducedResults.push({
       id: i,
-      context: result.context.alt,
-      height: result.height,
-      width: result.width,
-      public_id: result.public_id,
-      format: result.format,
+      url: image.url,
+      description: image.description
     })
     i++
   }
 
-  const blurImagePromises = results.resources.map((image: ImageProps) => {
+  /*const blurImagePromises = newImages.map((image: ImageProps) => {
     return getBase64ImageUrl(image)
   })
+
   const imagesWithBlurDataUrls = await Promise.all(blurImagePromises)
 
   for (let i = 0; i < reducedResults.length; i++) {
     reducedResults[i].blurDataUrl = imagesWithBlurDataUrls[i]
-  }
+  }*/
 
   return {
     props: {
       images: reducedResults,
     },
   }
-}*/
+}

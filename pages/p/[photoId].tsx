@@ -5,41 +5,13 @@ import Carousel from '../../components/Carousel'
 import getResults from '../../utils/cachedImages'
 import getBase64ImageUrl from '../../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../../utils/types'
-import {useEffect, useState, Suspense} from "react";
+import {Suspense} from "react";
 
-const Home: NextPage = () => {
-  const [currentPhoto, setCurrentPhoto] = useState(null)
+const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
+  // const [currentPhoto, setCurrentPhoto] = useState(null)
   const router = useRouter()
   const { photoId } = router.query
   let index = Number(photoId)
-
-  useEffect(() => {
-
-    fetch('/api/images')
-      .then((res) => res.json())
-      .then((data) => {
-        const newImages = data.images.rows
-
-        let reducedResults: ImageProps[] = []
-        let i = 0
-        for (let image of newImages) {
-          reducedResults.push({
-            id: i,
-            url: image.url,
-            description: image.description
-          })
-          i++
-        }
-
-        const currentPhoto = reducedResults.find(
-          (img) => img.id === index
-        )
-
-        // currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
-
-        setCurrentPhoto(currentPhoto);
-      });
-  }, [index]);
 
   const currentPhotoUrl = currentPhoto?.url
 
@@ -62,11 +34,31 @@ const Home: NextPage = () => {
 export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const data = await getResults()
+  let reducedResults: ImageProps[] = []
+
+  const results = await fetch('https://reactmiami2023.vercel.app/api/images')
+  const data = await results.json()
+
+  const newImages = data.images.rows
+  let i = 0
+  for (let image of newImages) {
+    reducedResults.push({
+      id: i,
+      url: image.url,
+      description: image.description
+    })
+    i++
+  }
+
+  const currentPhoto = reducedResults.find(
+    (img) => img.id === Number(context.params.photoId)
+  )
+
+      // currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
 
   return {
     props: {
-      images: data,
+      currentPhoto: currentPhoto,
     },
   }
 }

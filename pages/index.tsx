@@ -11,7 +11,6 @@ import getBase64ImageUrl from '../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../utils/types'
 import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
 import UploadForm from "../components/UploadForm";
-import List from "../components/List";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter()
@@ -75,7 +74,6 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
             </a>
           </div>
           <UploadForm/>
-          {/*{images.map(({ id, context, public_id, format, blurDataUrl }) => (*/}
           {images.map(({id, url, description}) => (
             <Link
               key={id}

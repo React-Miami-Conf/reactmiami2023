@@ -12,7 +12,6 @@
     "@vercel/analytics": "^1.0.0",
     "@vercel/blob": "^0.8.1",
     "@vercel/postgres": "^0.3.0",
-    "cloudinary": "^1.32.0",
     "eslint-config-next": "^13.0.1",
     "framer-motion": "^7.6.4",
     "imagemin": "^8.0.1",

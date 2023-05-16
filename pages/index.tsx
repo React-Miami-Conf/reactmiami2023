@@ -11,6 +11,7 @@ import getBase64ImageUrl from '../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../utils/types'
 import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
 import UploadForm from "../components/UploadForm";
+import List from "../components/List";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter()
@@ -73,7 +74,8 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               Learn More
             </a>
           </div>
-          <UploadForm/>
+          {/*<UploadForm/>*/}
+          {/*<List />*/}
           {images.map(({id, url, description}) => (
             <Link
               key={id}
@@ -111,7 +113,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         >
           Daniel Schutzsmith
         </a>
-        {' '}and{' '}
+        {/*{' '}and{' '}
         <a
           href="https://twitter.com/Beccalytics"
           target="_blank"
@@ -119,7 +121,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           rel="noreferrer"
         >
           Rebecca Bakels
-        </a>{' '}
+        </a>*/}{' '}
         for the pictures.
       </footer>
     </>

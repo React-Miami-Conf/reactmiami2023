@@ -64,7 +64,7 @@ export async function getStaticPaths() {
   const data = await getResults()
 
   let fullPaths = []
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.images.rows.length; i++) {
     fullPaths.push({ params: { photoId: i.toString() } })
   }
 

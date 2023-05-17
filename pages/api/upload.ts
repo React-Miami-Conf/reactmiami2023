@@ -10,7 +10,7 @@ export default async function upload(request: NextRequest) {
 
   const blob = await put(file.name, file, { access: 'public'});
 
-  const imageData = {...blob, description: form.get('description')}
+  const imageData = {...blob, description: form.get('description'), category: form.get('category')}
 
   return NextResponse.json(imageData);
 }

@@ -41,7 +41,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     reducedResults.push({
       id: i,
       url: image.url,
-      description: image.description
+      description: image.description,
+      category: image.category,
     })
     i++
   }

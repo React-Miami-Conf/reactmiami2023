@@ -113,7 +113,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         >
           Daniel Schutzsmith
         </a>
-        {/*{' '}and{' '}
+        {' '}and{' '}
         <a
           href="https://twitter.com/Beccalytics"
           target="_blank"
@@ -121,7 +121,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
           rel="noreferrer"
         >
           Rebecca Bakels
-        </a>*/}{' '}
+        </a>{' '}
         for the pictures.
       </footer>
     </>
@@ -143,7 +143,8 @@ export async function getStaticProps() {
     reducedResults.push({
       id: i,
       url: image.url,
-      description: image.description
+      description: image.description,
+      category: image.category
     })
     i++
   }

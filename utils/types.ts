@@ -3,6 +3,7 @@ export interface ImageProps {
   id: number
   url: string
   description: string
+  category: string
   // context: string
   // height: string
   // width: string

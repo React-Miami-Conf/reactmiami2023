@@ -6,8 +6,8 @@ export default async function store(request: NextApiRequest, response: NextApiRe
 
   try {
     await sql`
-      INSERT INTO images (Url, Description)
-      VALUES (${req.url}, ${req.description});
+      INSERT INTO images (Url, Description, Category)
+      VALUES (${req.url}, ${req.description}, ${req.category});
     `;
   } catch (error) {
     return response.status(500).json({ error });

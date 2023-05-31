@@ -173,7 +173,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      images: sortedResults,
+      images: reducedResults,
     },
   }
 }

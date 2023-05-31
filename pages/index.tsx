@@ -159,9 +159,21 @@ export async function getStaticProps() {
     reducedResults[i].blurDataUrl = imagesWithBlurDataUrls[i]
   }*/
 
+  const sortedResults = reducedResults.sort((a, b) => {
+    const nameA = a.category.toLowerCase();
+    const nameB = b.category.toLowerCase();
+
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+
   return {
     props: {
-      images: reducedResults,
+      images: sortedResults,
     },
   }
 }

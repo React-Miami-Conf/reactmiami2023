@@ -10,8 +10,6 @@ import Modal from '../components/Modal'
 import getBase64ImageUrl from '../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../utils/types'
 import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
-import UploadForm from "../components/UploadForm";
-import List from "../components/List";
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter()
@@ -74,8 +72,6 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               Learn More
             </a>
           </div>
-          {/*<UploadForm/>*/}
-          {/*<List />*/}
           {images.map(({id, url, description}) => (
             <Link
               key={id}
@@ -149,7 +145,10 @@ export async function getStaticProps() {
     i++
   }
 
-  /*const blurImagePromises = newImages.map((image: ImageProps) => {
+  /*
+  // Blurred images are skipped due to performance warnings from Next
+
+  const blurImagePromises = newImages.map((image: ImageProps) => {
     return getBase64ImageUrl(image)
   })
 
@@ -157,7 +156,8 @@ export async function getStaticProps() {
 
   for (let i = 0; i < reducedResults.length; i++) {
     reducedResults[i].blurDataUrl = imagesWithBlurDataUrls[i]
-  }*/
+  }
+  */
 
 
   return {

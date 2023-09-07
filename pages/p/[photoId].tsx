@@ -51,7 +51,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     (img) => img.id === Number(context.params.photoId)
   )
 
-  // currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
+  /*
+  // Blurred images are skipped due to performance warnings from Next
+
+  currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
+  */
 
   return {
     props: {
